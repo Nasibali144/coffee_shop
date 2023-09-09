@@ -149,6 +149,8 @@ List<CoffeeModel> coffeeDataBase = [
       assetImage: CustomImages.image_12,
       type: CoffeeType.especiais),
 ];
+
+
 List<CoffeeModel> tradicionais = [
   CoffeeModel(
       id: "1",
