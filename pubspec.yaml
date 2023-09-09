@@ -1,0 +1,51 @@
+name: coffee_shop
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+  lottie: ^2.6.0
+  rive: ^0.11.15
+  carousel_slider: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/gif/
+    - assets/rive/
+
+  fonts:
+    - family: Baloo_2
+      fonts:
+        - asset: assets/fonts/Baloo_2/static/Baloo2-Bold.ttf
+          weight: 700
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-2/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto-2/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto-2/Roboto-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Roboto-2/Roboto-Light.ttf
+          weight: 300
