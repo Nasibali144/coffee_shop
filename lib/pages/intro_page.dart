@@ -1,7 +1,9 @@
+import 'package:coffee_shop/blocs/coffee/coffee_bloc.dart';
 import 'package:coffee_shop/constants/fonts.dart';
 import 'package:coffee_shop/constants/icons.dart';
 import 'package:coffee_shop/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constants/colors.dart';
 import '../constants/strings.dart';
@@ -29,7 +31,6 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     _controllerBorderRadius =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
     _animationBorderRadius = BorderRadiusTween(
@@ -84,6 +85,12 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
     await Future.delayed(const Duration(seconds: 3));
     // Navigator.of(context).pushAndRemoveUntil(_createRoute(), (route) => false);
     if (mounted) Navigator.of(context).pushReplacement(_createRoute());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<CoffeeBloc>()..add(GetInitial())..add(GetTradicional());
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:coffee_shop/blocs/coffee/coffee_bloc.dart';
 import 'package:coffee_shop/constants/colors.dart';
-import 'package:coffee_shop/models/coffee_model.dart';
 import 'package:coffee_shop/pages/detail_page.dart';
 import 'package:coffee_shop/views/animated_coffee_image.dart';
 import 'package:coffee_shop/views/animated_text_widget.dart';
@@ -11,6 +11,7 @@ import 'package:coffee_shop/views/only_three_widget.dart';
 import 'package:coffee_shop/views/text_field_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -70,17 +71,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  List<CupertinoPageRoute> onTap = [
-    CupertinoPageRoute(
-      builder: (context) => const DetailPage(index: 3, type: "Tradicionais"),
-    ),
-    CupertinoPageRoute(
-      builder: (context) => const DetailPage(index: 1, type: "Doce"),
-    ),
-    CupertinoPageRoute(
-      builder: (context) => const DetailPage(index: 3, type: "Esprcial"),
-    ),
-  ];
+
 
   @override
   void didChangeDependencies() {
@@ -181,23 +172,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(bottom: 350),
-                //   child: Align(
-                //     alignment: Alignment.center,
-                //     child: AnimatedBuilder(
-                //       animation: _animationScale,
-                //       builder: (context, child) {
-                //         return Transform.scale(
-                //           scale: _controllerScale.value,
-                //           child: TextFieldWidget(
-                //             controller: _searchController,
-                //           ),
-                //         );
-                //       },
-                //     ),
-                //   ),
-                // ),
                 Positioned(
                   left: 0,
                   right: 0,
@@ -213,130 +187,51 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             padding: const EdgeInsets.only(top: 150),
                             child: SizedBox(
                               height: 390,
-                              child: CarouselSlider(
-                                carouselController: _carouselController,
-                                options: CarouselOptions(
-                                  clipBehavior: Clip.none,
-                                  enableInfiniteScroll: false,
-                                  autoPlayInterval: const Duration(seconds: 3),
-                                  viewportFraction: 0.65,
-                                  padEnds: true,
-                                  autoPlayCurve: Curves.linear,
-                                  height: 270,
-                                  autoPlay: false,
-                                  enlargeCenterPage: true,
-                                  enlargeStrategy:
-                                      CenterPageEnlargeStrategy.height,
-                                ),
-                                items: [
-                                  // for (int i = 0; i < 3; i++)
-                                  SizedBox(
-                                    width: 210,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const DetailPage(
-                                                    index: 3,
-                                                    type: "Tradicionais"),
-                                          ),
-                                        );
-                                      },
-                                      child: OnlyThreeWidget(
-                                        assetImage:
-                                            coffeeDataBase[findIndex(index: 0)]
-                                                .assetImage,
-                                        explain:
-                                            coffeeDataBase[findIndex(index: 0)]
-                                                .description,
-                                        title:
-                                            coffeeDataBase[findIndex(index: 0)]
-                                                .type
-                                                .name,
-                                        name:
-                                            coffeeDataBase[findIndex(index: 0)]
-                                                .title,
-                                        prise:
-                                            coffeeDataBase[findIndex(index: 0)]
-                                                .price
-                                                .toString(),
-                                        scale: 1.2,
-                                        assetScale: 1.5,
-                                      ),
+                              child: BlocBuilder<CoffeeBloc, CoffeeState>(
+                                builder: (context, state) {
+                                  return CarouselSlider(
+                                    carouselController: _carouselController,
+                                    options: CarouselOptions(
+                                      clipBehavior: Clip.none,
+                                      enableInfiniteScroll: false,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 3),
+                                      viewportFraction: 0.65,
+                                      padEnds: true,
+                                      autoPlayCurve: Curves.linear,
+                                      height: 270,
+                                      autoPlay: false,
+                                      enlargeCenterPage: true,
+                                      enlargeStrategy:
+                                          CenterPageEnlargeStrategy.height,
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 210,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const DetailPage(
-                                                    index: 1, type: "Doce"),
-                                          ),
-                                        );
-                                      },
-                                      child: OnlyThreeWidget(
-                                        assetImage:
-                                            coffeeDataBase[findIndex(index: 1)]
-                                                .assetImage,
-                                        explain:
-                                            coffeeDataBase[findIndex(index: 1)]
-                                                .description,
-                                        title:
-                                            coffeeDataBase[findIndex(index: 1)]
-                                                .type
-                                                .name,
-                                        name:
-                                            coffeeDataBase[findIndex(index: 1)]
-                                                .title,
-                                        prise:
-                                            coffeeDataBase[findIndex(index: 1)]
-                                                .price
-                                                .toString(),
-                                        scale: 1.2,
-                                        assetScale: 1.5,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 210,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          CupertinoPageRoute(
-                                            builder: (context) =>
-                                                const DetailPage(
-                                                    index: 3, type: "Esprcial"),
-                                          ),
-                                        );
-                                      },
-                                      child: OnlyThreeWidget(
-                                        assetImage:
-                                            coffeeDataBase[findIndex(index: 2)]
-                                                .assetImage,
-                                        explain:
-                                            coffeeDataBase[findIndex(index: 2)]
-                                                .description,
-                                        title:
-                                            coffeeDataBase[findIndex(index: 2)]
-                                                .type
-                                                .name,
-                                        name:
-                                            coffeeDataBase[findIndex(index: 2)]
-                                                .title,
-                                        prise:
-                                            coffeeDataBase[findIndex(index: 2)]
-                                                .price
-                                                .toString(),
-                                        scale: 1.2,
-                                        assetScale: 1.5,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                    items: state.initial
+                                        .map((coffee) => SizedBox(
+                                              width: 210,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.of(context).push(
+                                                    CupertinoPageRoute(
+                                                      builder: (context) =>
+                                                          DetailPage(coffee: coffee,),
+                                                    ),
+                                                  );
+                                                },
+                                                child: OnlyThreeWidget(
+                                                  assetImage: coffee.assetImage,
+                                                  explain: coffee.description,
+                                                  title: coffee.type.name,
+                                                  name: coffee.title,
+                                                  prise: coffee.price
+                                                      .toString(),
+                                                  scale: 1.2,
+                                                  assetScale: 1.5,
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -358,11 +253,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       },
                       child: Transform.scale(
                           scale: _animationSize.value,
-                          child: DraggableWidget(
-                            putIndex: 1,
-                            putIndex1: 2,
-                            putIndex2: 3,
-                          )),
+                          child: const DraggableWidget(),),
                     );
                   },
                 ),

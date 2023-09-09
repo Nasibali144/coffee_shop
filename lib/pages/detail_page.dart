@@ -10,12 +10,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-// tradicionais[index].coffeeName
-// ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
-  const DetailPage({super.key, required this.index, required this.type});
-  final int index;
-  final String type;
+  const DetailPage({super.key, required this.coffee});
+  final CoffeeModel coffee;
+
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
@@ -29,27 +27,6 @@ class _DetailPageState extends State<DetailPage> {
   int andiconar = 0;
   @override
   Widget build(BuildContext context) {
-    // String coffeeName = widget.type == "Tradicionais"
-    //     ? tradicionais[widget.index].title
-    //     : widget.type == "Doce"
-    //         ? doce[widget.index].title
-    //         : widget.type == "Esprcial"
-    //             ? especial[widget.index].title
-    //             : "";
-    // String coffeePrice = widget.type == "Tradicionais"
-    //     ? tradicionais[widget.index].price.toString()
-    //     : widget.type == "Doce"
-    //         ? doce[widget.index].price.toString()
-    //         : widget.type == "Esprcial"
-    //             ? especial[widget.index].price.toString()
-    //             : "";
-    // Object coffeeImage = widget.type == "Tradicionais"
-    //     ? tradicionais[widget.index].assetImage
-    //     : widget.type == "Doce"
-    //         ? doce[widget.index].assetImage
-    //         : widget.type == "Esprcial"
-    //             ? especial[widget.index].assetImage
-    //             : "";
 
     return Container(
       height: MediaQuery.sizeOf(context).height,
@@ -106,8 +83,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   onPressed: () {},
                   child: Text(
-                    // Strings.especiai,
-                    "${widget.type == "Tradicionais" ? tradicionais[widget.index].type.name : widget.type == "Doce" ? doce[widget.index].type.name : widget.type == "Esprcial" ? especial[widget.index].type.name : ""}",
+                    widget.coffee.type.name.toUpperCase(),
                     style: textStyleForRobotoW700(
                         color: CustomColors.white, fontSize: 11),
                   ),
@@ -116,13 +92,7 @@ class _DetailPageState extends State<DetailPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.type == "Tradicionais"
-                          ? tradicionais[widget.index].title
-                          : widget.type == "Doce"
-                              ? doce[widget.index].title
-                              : widget.type == "Esprcial"
-                                  ? especial[widget.index].title
-                                  : "",
+                      widget.coffee.title,
                       style: textStyleForBaloo_2W700(
                           color: CustomColors.white, fontSize: 20),
                     ),
@@ -139,13 +109,7 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                         Text(
                           textAlign: TextAlign.center,
-                          widget.type == "Tradicionais"
-                              ? tradicionais[widget.index].price.toString()
-                              : widget.type == "Doce"
-                                  ? doce[widget.index].price.toString()
-                                  : widget.type == "Esprcial"
-                                      ? especial[widget.index].price.toString()
-                                      : "",
+                          widget.coffee.price.toString(),
                           style: textStyleForBaloo_2W700(
                               color: CustomColors.yellow,
                               fontSize: 35,
@@ -159,13 +123,7 @@ class _DetailPageState extends State<DetailPage> {
                   height: 20,
                 ),
                 Text(
-                  widget.type == "Tradicionais"
-                      ? tradicionais[widget.index].description
-                      : widget.type == "Doce"
-                          ? doce[widget.index].description
-                          : widget.type == "Esprcial"
-                              ? especial[widget.index].description
-                              : "",
+                  widget.coffee.description,
                   style: textStyleForRobotoW400(
                       color: CustomColors.white, fontSize: 16),
                 ),
